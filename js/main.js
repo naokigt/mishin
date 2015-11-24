@@ -12,12 +12,6 @@ $(function(){
 	$("#drawingCanvas").mousedown(function(event){
 		strokeColor = "#666666"; //inputの色の設定を取得
 
-		//PAINT(value: paint)が選択されていたら、塗りつぶし色を設定
-		if($("input[name='drawtype']:checked").val() == "paint")
-			drawType = strokeColor;
-		else
-			drawType = "none";
-
 		movetoX = parseInt(event.pageX - svgElm.position().left); //SVG上のマウス座標(横方向)の取得
 		movetoY = parseInt(event.pageY - svgElm.position().top); //SVG上のマウス座標(縦方向)の取得
 		var pathElm = document.createElementNS("http://www.w3.org/2000/svg", "path"); //SVGのpath要素を作成
@@ -26,11 +20,12 @@ $(function(){
 		//追加したpathの各属性を設定
 		svgElm.find("path:last").attr({
 			"d": "", //pathデータ
-			"fill": drawType, //塗りつぶし
+			"fill": "none", //塗りつぶし
 			"stroke": strokeColor, //線の色
 			"stroke-width": "3", //線の太さ
 			"stroke-linecap": "round" //線の端を丸める
 		});
+		console.log(movetoX);
 
 		var linetoX = [], //描画点の横座標の初期化
 			linetoY = [], //描画点の縦座標の初期化
@@ -57,5 +52,22 @@ $(function(){
 	$(".clear").click(function(){
 		svgElm.html("");
 	});
+
+
+	// // 傾きを取得するコード
+	// // DeviceOrientation Event
+	// window.addEventListener("deviceorientation", deviceorientationHandler);
+
+	// // ジャイロセンサーの値が変化
+	// function deviceorientationHandler(event) {
+	//     // X軸(スマホを横にした状態で左右の傾き)
+	//     var beta = event.beta;
+	//     // Y軸(スマホを横にした状態で縦の傾き)
+	//     var gamma = event.gamma;
+	//
+	//     // Z軸(方角)今回は使わない
+	//     var alpha = event.alpha;
+	// }
+
 
 });

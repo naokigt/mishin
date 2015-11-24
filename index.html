@@ -3,16 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<figure>
-	<svg id="drawingCanvas" width="958" height="480" stroke-dasharray="4 10"></svg>
+	<figure class="main-canvas">
+		<svg class="base" width="958" height="480" viewBox="0 0 200 200">
+			<path d="M 25,100 A 75,75 0 1,1 175,100 A 75,75 0 1,1 25,100 z" stroke="#ddd" stroke-width="4" fill="none" />
+		</svg>
+		<svg class="sew" id="drawingCanvas" width="958" height="480" stroke-dasharray="4 10"></svg>
 	</figure>
 	<p>
-		<label><input type="radio" name="drawtype" value="line" checked> LINE</label>
-		<label><input type="radio" name="drawtype" value="paint"> PAINT</label>
 		<input type="button" class="clear" value="CLEAR">
 	</p>
 	<script src="js/jquery-1.11.0.min.js"></script>
