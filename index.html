@@ -1,22 +1,24 @@
-<!DOCTYPE html>
-<html lang="ja">
+
+<!doctype html>
+<html>
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/style.css">
+<title>3D ミシン</title>
 </head>
 <body>
-	<figure class="main-canvas">
-		<svg class="base" width="958" height="480" viewBox="0 0 200 200">
-			<path d="M 25,100 A 75,75 0 1,1 175,100 A 75,75 0 1,1 25,100 z" stroke="#ddd" stroke-width="4" fill="none" />
-		</svg>
-		<svg class="sew" id="drawingCanvas" width="958" height="480" stroke-dasharray="4 10"></svg>
-	</figure>
-	<p>
-		<input type="button" class="clear" value="CLEAR">
-	</p>
-	<script src="js/jquery-1.11.0.min.js"></script>
-	<script src="js/main.js"></script>
+<div id="aaa">
+	<div id="bbb">
+		<canvas id="canvas" width="640px" height="480px">残念ながらHTML5に対応していません</canvas>
+	</div>
+</div>
+<div id="item">
+	<div id="item2">
+		<p><button style="width:100px;" id="clear">消去</button>  <button style="width:100px;" onclick="save()">保存</button></p>
+	</div>
+</div>
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

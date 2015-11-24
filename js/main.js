@@ -1,73 +1,108 @@
-$(function(){
 
-	//初期設定
-	var svgElm = $("#drawingCanvas"), //SVG要素を取得
-		movetoX = 0, //開始点(横方向)の初期化
-		movetoY = 0, //開始点(縦方向)の初期化
-		linetoStr = "", //LineToコマンド値の初期化
-		strokeColor = "#666666", //描画色の初期化
-		drawType = ""; //塗りつぶしの初期化
+//canvasの読み込み設定
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
 
-	/* ドラッグ開始 */
-	$("#drawingCanvas").mousedown(function(event){
-		strokeColor = "#666666"; //inputの色の設定を取得
+//マウスを操作する
+var mouse = {x:0,y:0,x1:0,y1:0,color:"black"};
+var draw = false;
 
-		movetoX = parseInt(event.pageX - svgElm.position().left); //SVG上のマウス座標(横方向)の取得
-		movetoY = parseInt(event.pageY - svgElm.position().top); //SVG上のマウス座標(縦方向)の取得
-		var pathElm = document.createElementNS("http://www.w3.org/2000/svg", "path"); //SVGのpath要素を作成
-		svgElm.append(pathElm); //SVGに作成したpathを追加
-
-		//追加したpathの各属性を設定
-		svgElm.find("path:last").attr({
-			"d": "", //pathデータ
-			"fill": "none", //塗りつぶし
-			"stroke": strokeColor, //線の色
-			"stroke-width": "3", //線の太さ
-			"stroke-linecap": "round" //線の端を丸める
-		});
-		console.log(movetoX);
-
-		var linetoX = [], //描画点の横座標の初期化
-			linetoY = [], //描画点の縦座標の初期化
-			cntMoveto = 0; //描画点のカウンターを初期化
-		linetoStr = 'M ' + movetoX + ' ' + movetoY + ' '; //d要素でpathの開始点を設定
-
-		/* ドラッグ中 */
-		$("#drawingCanvas").on("mousemove", function(event){
-			event.preventDefault();
-			linetoX[cntMoveto] = parseInt(event.pageX - svgElm.position().left); //SVG上のマウス座標(横方向)の取得
-			linetoY[cntMoveto] = parseInt(event.pageY - svgElm.position().top); //SVG上のマウス座標(縦方向)の取得
-			linetoStr = linetoStr + " L " + linetoX[cntMoveto] + " " + linetoY[cntMoveto]; //動いた後の新たなマウス座標を描画点として追加
-
-			svgElm.find("path:last").attr("d", linetoStr); //pathデータ(d属性)の値を更新
-			cntMoveto++; //カウンターをセット
-		});
-
-	/* ドラッグ終了 */
-	}).mouseup(function(event){
-		$("#drawingCanvas").off("mousemove"); //pathの描画を終了
-	});
-
-	//CLEARボタンをクリックしたら、SVGを空にする
-	$(".clear").click(function(){
-		svgElm.html("");
-	});
-
-
-	// // 傾きを取得するコード
-	// // DeviceOrientation Event
-	// window.addEventListener("deviceorientation", deviceorientationHandler);
-
-	// // ジャイロセンサーの値が変化
-	// function deviceorientationHandler(event) {
-	//     // X軸(スマホを横にした状態で左右の傾き)
-	//     var beta = event.beta;
-	//     // Y軸(スマホを横にした状態で縦の傾き)
-	//     var gamma = event.gamma;
-	//
-	//     // Z軸(方角)今回は使わない
-	//     var alpha = event.alpha;
-	// }
-
-
+//クリックしたら描画をOKの状態にする
+canvas.addEventListener("mousedown",function(e) {
+	draw = true;
+	mouseXBefore = mouseXAfter;
+	mouseYBefore = mouseYAfter;
 });
+
+//マウスの座標を取得する
+canvas.addEventListener("mousemove",function(e) {
+	var rect = e.target.getBoundingClientRect();
+	ctx.lineWidth = 3;		// 線の太さ
+	ctx.globalAlpha = 1;	// 透明度
+	ctx.setLineDash([3, 15]); // 点線の間隔
+
+	mouseXAfter = e.clientX - rect.left;
+	mouseYAfter = e.clientY - rect.top;
+
+
+	//クリック状態なら描画をする
+	if(draw === true) {
+		ctx.beginPath();
+		ctx.moveTo(mouseXBefore,mouseYBefore);
+		ctx.lineTo(mouseXAfter,mouseYAfter);
+		ctx.lineCap = "round";
+		ctx.stroke();
+		ctx.strokeStyle = "#666";
+		mouseXBefore = mouseXAfter;
+		mouseYBefore = mouseYAfter;
+	}
+});
+
+
+
+//クリックを離したら、描画を終了する
+canvas.addEventListener("mouseup", function(e){
+	draw = false;
+});
+
+
+//消去ボタンを起動する
+$('#clear').click(function(e) {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
+
+
+
+//保存する
+function save(){
+	var can = canvas.toDataURL("image/png");
+	can = can.replace("image/png", "image/octet-stream");
+	window.open(can,"save");
+}
+
+
+
+
+//スマホ用
+var finger=new Array;
+for(var i=0;i<10;i++){
+	finger[i]={
+		x:0,y:0,x1:0,y1:0,
+		color:"rgb("
+		+Math.floor(Math.random()*16)*15+","
+		+Math.floor(Math.random()*16)*15+","
+		+Math.floor(Math.random()*16)*15
+		+")"
+	};
+}
+
+//タッチした瞬間座標を取得
+canvas.addEventListener("touchstart",function(e){
+	e.preventDefault();
+	var rect = e.target.getBoundingClientRect();
+	ctx.lineWidth = document.getElementById("lineWidth").value;
+	ctx.globalAlpha = document.getElementById("alpha").value/100;
+	for(var i=0;i<finger.length;i++){
+		finger[i].x1 = e.touches[i].clientX-rect.left;
+		finger[i].y1 = e.touches[i].clientY-rect.top;
+	}
+});
+
+//タッチして動き出したら描画
+canvas.addEventListener("touchmove",function(e){
+	e.preventDefault();
+	var rect = e.target.getBoundingClientRect();
+	for(var i=0;i<finger.length;i++){
+		finger[i].x = e.touches[i].clientX-rect.left;
+		finger[i].y = e.touches[i].clientY-rect.top;
+		ctx.beginPath();
+		ctx.moveTo(finger[i].x1,finger[i].y1);
+		ctx.lineTo(finger[i].x,finger[i].y);
+		ctx.lineCap="round";
+		ctx.stroke();
+		finger[i].x1=finger[i].x;
+		finger[i].y1=finger[i].y;
+
+	}
+});
+
