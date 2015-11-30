@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="css/reset.css">
+<title>3D ミシン</title>
+<style>
+</style>
+</head>
+<body>
+<canvas id="canvas" width="800px" height="1000px">
+
+</canvas>
+<div class="debug-box">
+	<span id="beta-value">0</span><br><br>
+	<span id="gamma-value">0</span><br><br>
+	<span id="pointer-value">0</span><br><br>
+</div>
+<script src="js/jquery-1.11.0.min.js"></script>
+<!-- <script src="js/main.js"></script> -->
+<script>
+$(function(){
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+
+	var canvasSize = {
+		width: 800,
+		height: 1000
+	}
+
+	var pointer = {
+		x:0,
+		y:0
+	};
+	// 傾きを取得するコード
+	// DeviceOrientation Event
+
+	// // ジャイロセンサーの値が変化
+	// function deviceorientationHandler(event) {
+
+	//     // X軸(スマホを横にした状態で左右の傾き)
+	//     var beta = Math.floor(event.beta);
+	//     $("#beta-value").text(beta);
+	//     // Y軸(スマホを横にした状態で縦の傾き)
+	//     var gamma = Math.floor(event.gamma);
+	//     $("#gamma-value").text(gamma);
+
+	//     pointer.x = pointer.x + beta;
+	//     pointer.y = pointer.y + gamma;
+
+	//     $("#gamma-value").text("x:"+pointer.x+" y:"+pointer.y);
+
+	//     ctx.strokeStyle = "#333333"; //線のカラー設定
+ //        ctx.lineWidth = 4; //線の太さ
+ //        ctx.beginPath(); //パスの描画を始める
+ //        ctx.moveTo(pointer.x, pointer.x); //線の開始位置 (xの座標値 , yの座標値)
+ //        ctx.lineTo(pointer.x + 5, pointer.x + 5); //線の終了位置 (xの座標値, yの座標値)
+ //        ctx.stroke(); //線の終了
+
+	// }
+		var beta,
+			gamma;
+		window.addEventListener("deviceorientation", function deviceorientationHandler(event) {
+			beta = event.beta;
+			gamma = event.gamma
+		});
+
+
+	function drawing(){
+		beta = Math.floor(beta / 3 * 2);
+		gamma = Math.floor(gamma / 3 * 2);
+
+		var linelengthX = Math.floor(gamma / 3);
+		var linelengthY = Math.floor(beta / 3);
+	    $("#beta-value").text("beta: "+beta);
+	    // Y軸(スマホを横にした状態で縦の傾き)
+	    $("#gamma-value").text("gamma: "+gamma);
+
+	    pointer.x = pointer.x + gamma;
+	    if(pointer.x > canvasSize.width){
+	    	pointer.x = canvasSize.width;
+	    }else if(pointer.x < 0){
+	    	pointer.x = 0;
+	    }
+	    pointer.y = pointer.y + beta;
+	    if(pointer.y > canvasSize.height){
+	    	pointer.y = canvasSize.height;
+	    }else if(pointer.y < 0){
+	    	pointer.y = 0;
+	    }
+
+	    $("#pointer-value").text("x:"+pointer.x+" y:"+pointer.y);
+
+	    ctx.strokeStyle = "#333333"; //線のカラー設定
+        ctx.lineWidth = 4; //線の太さ
+        ctx.lineCap = "round";
+        ctx.beginPath(); //パスの描画を始める
+        ctx.moveTo(pointer.x, pointer.y); //線の開始位置 (xの座標値 , yの座標値)
+        ctx.lineTo(pointer.x + linelengthX, pointer.y + linelengthY); //線の終了位置 (xの座標値, yの座標値)
+        ctx.stroke(); //線の終了
+	}
+
+	setInterval(drawing, 200);
+});
+</script>
+</body>
+</html>
