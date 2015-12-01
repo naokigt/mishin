@@ -9,14 +9,12 @@
 </style>
 </head>
 <body>
-<canvas id="canvas" width="800px" height="1000px">
-
-</canvas>
-<div class="debug-box">
+<canvas id="canvas" width="800px" height="1000px"></canvas>
+<!-- <div class="debug-box">
 	<span id="beta-value">0</span><br><br>
 	<span id="gamma-value">0</span><br><br>
 	<span id="pointer-value">0</span><br><br>
-</div>
+</div> -->
 <script src="js/jquery-1.11.0.min.js"></script>
 <!-- <script src="js/main.js"></script> -->
 <script>
@@ -27,7 +25,7 @@ $(function(){
 	var canvasSize = {
 		width: 800,
 		height: 1000
-	}
+	};
 
 	var pointer = {
 		x:0,
@@ -73,9 +71,9 @@ $(function(){
 
 		var linelengthX = Math.floor(gamma / 3);
 		var linelengthY = Math.floor(beta / 3);
-	    $("#beta-value").text("beta: "+beta);
+	    // $("#beta-value").text("beta: "+beta);
 	    // Y軸(スマホを横にした状態で縦の傾き)
-	    $("#gamma-value").text("gamma: "+gamma);
+	    // $("#gamma-value").text("gamma: "+gamma);
 
 	    pointer.x = pointer.x + gamma;
 	    if(pointer.x > canvasSize.width){
@@ -90,7 +88,7 @@ $(function(){
 	    	pointer.y = 0;
 	    }
 
-	    $("#pointer-value").text("x:"+pointer.x+" y:"+pointer.y);
+	    // $("#pointer-value").text("x:"+pointer.x+" y:"+pointer.y);
 
 	    ctx.strokeStyle = "#333333"; //線のカラー設定
         ctx.lineWidth = 4; //線の太さ

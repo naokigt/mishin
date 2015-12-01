@@ -1,24 +1,51 @@
-
 <!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="css/reset.css">
-<link rel="stylesheet" href="css/style.css">
-<title>3D ミシン</title>
+<meta charset="utf-8">
+<title>Cosplay Tailors</title>
+<link href="css/reset.css" rel="stylesheet" type="text/css">
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
 </head>
+
 <body>
-<div id="aaa">
-	<div id="bbb">
-		<canvas id="canvas" width="640px" height="480px">残念ながらHTML5に対応していません</canvas>
-	</div>
-</div>
-<div id="item">
-	<div id="item2">
-		<p><button style="width:100px;" id="clear">消去</button>  <button style="width:100px;" onclick="save()">保存</button></p>
-	</div>
-</div>
-<script src="js/jquery-1.11.0.min.js"></script>
-<script src="js/main.js"></script>
+<div id="wrap">
+<div id="main">
+
+<header>
+	<h1><img src="img/head2.png" /></h1>
+    
+</header>
+
+<div id="btn_box">
+	<h2><span>Position</span></h2>
+<div id="btn_in">
+	<div class="btn">
+    	<img src="img/logo.jpg" />
+    </div><!-- .btn -->
+    <div class="btn">
+    	<img src="img/logo.jpg" />
+    </div><!-- .btn -->
+    <div class="btn">
+    	<img src="img/logo.jpg" />
+    </div><!-- .btn -->
+</div><!-- btn_in -->
+</div><!-- btn_box -->
+
+
+<div id="fm_box">
+<form>
+	<h2><span>Name</span></h2>
+    <div id="ipt_box">
+    	<input type="button" id="sex_ipt" />
+        <input type="text" id="name_ipt" /><br>
+    	<input type="submit" id="submit_ipt" value="NEXT" />
+	</div><!-- #ipt_box -->
+</form>    
+</div><!-- fm_box -->
+
+
+</div><!-- #main -->
+</div><!-- #wrap -->
 </body>
 </html>
