@@ -6,100 +6,134 @@
 <link rel="stylesheet" href="css/reset.css">
 <title>3D ミシン</title>
 <style>
+body{
+	background-image: url('img/back_red.png');
+}
 </style>
 </head>
 <body>
-<canvas id="canvas" width="800px" height="1000px"></canvas>
-<!-- <div class="debug-box">
-	<span id="beta-value">0</span><br><br>
-	<span id="gamma-value">0</span><br><br>
-	<span id="pointer-value">0</span><br><br>
-</div> -->
+<canvas id="canvas"></canvas>
+<div class="debug-box">
+	<!--<span id="beta-value">0</span><br><br>-->
+	<!--<span id="gamma-value">0</span><br><br>-->
+	<!--<span id="pointer-value">0</span><br><br>-->
+	r:<span id="r-value">0</span><br><br>
+	g:<span id="g-value">0</span><br><br>
+	b:<span id="b-value">0</span><br><br>
+	a:<span id="a-value">0</span><br><br>
+</div>
 <script src="js/jquery-1.11.0.min.js"></script>
 <!-- <script src="js/main.js"></script> -->
 <script>
 $(function(){
+	
+	// TODO: 難易度の設定
+	
 	var canvas = document.getElementById("canvas");
+	canvas.style.width = window.innerWidth + 'px';
+	canvas.style.height = window.innerHeight + 'px';
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
 	var ctx = canvas.getContext("2d");
-
-	var canvasSize = {
-		width: 800,
-		height: 1000
-	};
+	
+	var rangeImagePath = "https://preview.c9users.io/naokigt/mishin-3d/img/ginger_cookie.png";
+	
+	// var backImage = new Image();
+ //   backImage.src = 'img/back_red.png';
+ //   backImage.onload = function(){
+ //       ctx.beginPath();
+ //       var pattern = ctx.createPattern(backImage, 'repeat');
+ //       ctx.fillStyle = pattern;
+ //       ctx.rect(0, 0, canvas.width, canvas.height);
+ //       ctx.fill();
+ //   }
+        drawingImage(rangeImagePath);
 
 	var pointer = {
-		x:0,
-		y:0
+		x: 110,
+		y: 90
 	};
-	// 傾きを取得するコード
-	// DeviceOrientation Event
+	
+    
+	var beta,
+		gamma;
+		
+	// ジャイロセンサーの値が変化
+	window.addEventListener("deviceorientation", function deviceorientationHandler(event) {
+		beta = event.beta;
+		gamma = event.gamma
+	});
+	
 
-	// // ジャイロセンサーの値が変化
-	// function deviceorientationHandler(event) {
+	
+	
+	// 範囲画像の描画
+	function drawingImage(path){
+		var img = new Image();
+	 	img.onload = function() {
+		 	var imageWidth = window.innerWidth;
+		 	var imageHeight = (img.height * (imageWidth / img.width));
+		  	ctx.drawImage(img, imageWidth*0.05, imageHeight*0.05, imageWidth*0.9, imageHeight*0.9);
+	 	}
+	 	img.src = path;
+	};
 
-	//     // X軸(スマホを横にした状態で左右の傾き)
-	//     var beta = Math.floor(event.beta);
-	//     $("#beta-value").text(beta);
-	//     // Y軸(スマホを横にした状態で縦の傾き)
-	//     var gamma = Math.floor(event.gamma);
-	//     $("#gamma-value").text(gamma);
-
-	//     pointer.x = pointer.x + beta;
-	//     pointer.y = pointer.y + gamma;
-
-	//     $("#gamma-value").text("x:"+pointer.x+" y:"+pointer.y);
-
-	//     ctx.strokeStyle = "#333333"; //線のカラー設定
- //        ctx.lineWidth = 4; //線の太さ
- //        ctx.beginPath(); //パスの描画を始める
- //        ctx.moveTo(pointer.x, pointer.x); //線の開始位置 (xの座標値 , yの座標値)
- //        ctx.lineTo(pointer.x + 5, pointer.x + 5); //線の終了位置 (xの座標値, yの座標値)
- //        ctx.stroke(); //線の終了
-
-	// }
-		var beta,
-			gamma;
-		window.addEventListener("deviceorientation", function deviceorientationHandler(event) {
-			beta = event.beta;
-			gamma = event.gamma
-		});
-
-
+	// 糸の描画
 	function drawing(){
 		beta = Math.floor(beta / 3 * 2);
 		gamma = Math.floor(gamma / 3 * 2);
 
-		var linelengthX = Math.floor(gamma / 3);
-		var linelengthY = Math.floor(beta / 3);
-	    // $("#beta-value").text("beta: "+beta);
-	    // Y軸(スマホを横にした状態で縦の傾き)
-	    // $("#gamma-value").text("gamma: "+gamma);
+		var lineLengthX = Math.floor(gamma / 3);
+		var lineLengthY = Math.floor(beta / 3);
 
 	    pointer.x = pointer.x + gamma;
-	    if(pointer.x > canvasSize.width){
-	    	pointer.x = canvasSize.width;
+	    pointer.y = pointer.y + beta;
+	    
+	    if(pointer.x > canvas.width){
+	    	pointer.x = canvas.width;
 	    }else if(pointer.x < 0){
 	    	pointer.x = 0;
 	    }
-	    pointer.y = pointer.y + beta;
-	    if(pointer.y > canvasSize.height){
-	    	pointer.y = canvasSize.height;
+	    if(pointer.y > canvas.height){
+	    	pointer.y = canvas.height;
 	    }else if(pointer.y < 0){
 	    	pointer.y = 0;
 	    }
+		
+		// 範囲内だけ描ける	    
+	    if( ! isInRange(pointer.x, pointer.y)){
+	    	return;
+	    }
 
-	    // $("#pointer-value").text("x:"+pointer.x+" y:"+pointer.y);
-
-	    ctx.strokeStyle = "#333333"; //線のカラー設定
+	    ctx.strokeStyle = "#0000ff"; //線のカラー設定
         ctx.lineWidth = 4; //線の太さ
         ctx.lineCap = "round";
         ctx.beginPath(); //パスの描画を始める
         ctx.moveTo(pointer.x, pointer.y); //線の開始位置 (xの座標値 , yの座標値)
-        ctx.lineTo(pointer.x + linelengthX, pointer.y + linelengthY); //線の終了位置 (xの座標値, yの座標値)
+        ctx.lineTo(pointer.x + lineLengthX, pointer.y + lineLengthY); //線の終了位置 (xの座標値, yの座標値)
         ctx.stroke(); //線の終了
 	}
+	
+	// 範囲内だとtrue
+	function isInRange(x, y){
+		var imageData = ctx.getImageData(x, y, 1, 1);
+    	var colorRBGA = Array.prototype.slice.apply(imageData.data);
+	    $('#r-value').text(colorRBGA[0]);
+	    $('#g-value').text(colorRBGA[1]);
+	    $('#b-value').text(colorRBGA[2]);
+	    $('#a-value').text(colorRBGA[3]);
+	    
+	    // 範囲外の色を指定
+	    if(colorRBGA[3] == 0 || colorRBGA[0] <= 90){
+	    	pointer.x -= gamma;
+	    	pointer.y -= beta;
+	    	return false;
+	    }else{
+	    	return true;
+	    }
+	}
 
-	setInterval(drawing, 200);
+	setInterval(drawing, 150);
 });
 </script>
 </body>
