@@ -9,25 +9,44 @@
 body{
 	background-image: url('img/back_red.png');
 }
+#canvas{
+	position: absolute;
+	/*background: #eee;*/
+	top: 0;
+	left: 0;
+	z-index: 0;
+}
+#canvas-pointer{
+	position: absolute;
+	top: 0;
+	left: 0;
+	/*background: #ccc;*/
+	border: 1 solid #555;
+	z-index: 1;
+}
 </style>
 </head>
 <body>
+<!--<div class="order-wrapper">-->
+<!--	メッセージ-->
+<!--</div>-->
 <canvas id="canvas"></canvas>
+<canvas id="canvas-pointer"></canvas>
 <div class="debug-box">
-	<!--<span id="beta-value">0</span><br><br>-->
-	<!--<span id="gamma-value">0</span><br><br>-->
+	<span id="beta-value">0</span><br><br>
+	<span id="gamma-value">0</span><br><br>
 	<!--<span id="pointer-value">0</span><br><br>-->
 	r:<span id="r-value">0</span><br><br>
 	g:<span id="g-value">0</span><br><br>
 	b:<span id="b-value">0</span><br><br>
 	a:<span id="a-value">0</span><br><br>
+	time:<span id="time-value">0</span><br><br>
 </div>
 <script src="js/jquery-1.11.0.min.js"></script>
 <!-- <script src="js/main.js"></script> -->
 <script>
 $(function(){
 	
-	// TODO: 難易度の設定
 	
 	var canvas = document.getElementById("canvas");
 	canvas.style.width = window.innerWidth + 'px';
@@ -35,6 +54,14 @@ $(function(){
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
 	var ctx = canvas.getContext("2d");
+	
+	
+	var canvasPointer = document.getElementById("canvas-pointer");
+	canvasPointer.style.width = window.innerWidth + 'px';
+	canvasPointer.style.height = window.innerHeight + 'px';
+	canvasPointer.width = window.innerWidth;
+	canvasPointer.height = window.innerHeight;
+	var ctxp = canvasPointer.getContext("2d");
 	
 	var rangeImagePath = "https://preview.c9users.io/naokigt/mishin-3d/img/ginger_cookie.png";
 	
@@ -50,20 +77,45 @@ $(function(){
         drawingImage(rangeImagePath);
 
 	var pointer = {
-		x: 110,
-		y: 90
+		x: 115,
+		y: 83
 	};
+	var pointerGoal = {
+		xStart: 115,
+		xEnd: 135,
+		yStart: 55,
+		yEnd: 75,
+		circleX: 120,
+		circleY: 60,
+		circleRadius: 1
+	}
+	
+	var drawInterval;
 	
     
 	var beta,
 		gamma;
+	var MAX_SLOPE = 30;
 		
 	// ジャイロセンサーの値が変化
 	window.addEventListener("deviceorientation", function deviceorientationHandler(event) {
 		beta = event.beta;
-		gamma = event.gamma
+		gamma = event.gamma;
+		
+		// 最大傾斜にする
+		if(beta >= MAX_SLOPE){
+			beta = MAX_SLOPE;
+		}else if(beta <= -MAX_SLOPE){
+			beta = -MAX_SLOPE;
+		}
+		if(gamma >= MAX_SLOPE){
+			gamma = MAX_SLOPE;
+		}else if(gamma <= -MAX_SLOPE){
+			gamma = -MAX_SLOPE;
+		}
 	});
 	
+
 
 	
 	
@@ -74,15 +126,35 @@ $(function(){
 		 	var imageWidth = window.innerWidth;
 		 	var imageHeight = (img.height * (imageWidth / img.width));
 		  	ctx.drawImage(img, imageWidth*0.05, imageHeight*0.05, imageWidth*0.9, imageHeight*0.9);
+		  	drawStart();
+		  	(function(){
+			  	ctx.beginPath();
+			    //パスの開始座標を指定する
+			    ctx.moveTo(pointerGoal.xStart,pointerGoal.yStart);
+			    //座標を指定してラインを引いていく
+			    ctx.lineTo(pointerGoal.xEnd, pointerGoal.yStart);
+			    ctx.lineTo(pointerGoal.xEnd, pointerGoal.yEnd);
+			    ctx.lineTo(pointerGoal.xStart, pointerGoal.yEnd);
+			    ctx.lineTo(pointerGoal.xStart, pointerGoal.yStart);
+			    //パスを閉じる（最後の座標から開始座標に向けてラインを引く）
+			    ctx.closePath();
+			    //現在のパスを輪郭表示する
+			    ctx.stroke();
+		  	})();
+		    
 	 	}
 	 	img.src = path;
-	};
+	 	
+	}
 
 	// 糸の描画
 	function drawing(){
+	    $('#beta-value').text(pointer.x);
+	    $('#gamma-value').text(pointer.y);
 		beta = Math.floor(beta / 3 * 2);
 		gamma = Math.floor(gamma / 3 * 2);
-
+		
+		
 		var lineLengthX = Math.floor(gamma / 3);
 		var lineLengthY = Math.floor(beta / 3);
 
@@ -99,8 +171,11 @@ $(function(){
 	    }else if(pointer.y < 0){
 	    	pointer.y = 0;
 	    }
+	    
+		drawingLeadPointer();
+		checkGoalPoint();
 		
-		// 範囲内だけ描ける	    
+		// 範囲内だけ描ける
 	    if( ! isInRange(pointer.x, pointer.y)){
 	    	return;
 	    }
@@ -112,6 +187,25 @@ $(function(){
         ctx.moveTo(pointer.x, pointer.y); //線の開始位置 (xの座標値 , yの座標値)
         ctx.lineTo(pointer.x + lineLengthX, pointer.y + lineLengthY); //線の終了位置 (xの座標値, yの座標値)
         ctx.stroke(); //線の終了
+	}
+	
+	// 糸の先頭を表す点を描画
+	function drawingLeadPointer(){
+		ctxp.clearRect(0, 0, canvasPointer.width, canvasPointer.height);
+		
+	    ctxp.fillStyle = "#0000ff"; //線のカラー設定
+        // ctxp.lineWidth = 4; //線の太さ
+        ctxp.lineCap = "round";
+		ctxp.beginPath();
+		ctxp.arc(pointer.x, pointer.y, 2, 0, Math.PI*2, true);
+		ctxp.fill();
+ 
+		 //(140,80)を中心点とする、半径50の円弧を、開始角度90度、終了角度180度で、半時計回りに作成する
+	    // ctxp.arc(pointer.x, pointer.y ,10 ,0, 0);
+	    //現在のパスを輪郭表示する
+	    
+	    // ctxp.stroke();
+	    // ctxp.fill();
 	}
 	
 	// 範囲内だとtrue
@@ -132,9 +226,51 @@ $(function(){
 	    	return true;
 	    }
 	}
-
-	setInterval(drawing, 150);
+	
+	
+	function drawStart(){
+		drawInterval = setInterval(drawing, 150);  // 糸の描画を始める
+		startTimer();
+	}
+	
+	function checkGoalPoint(){
+		if(pointerGoal.xStart < pointer.x && pointer.x < pointerGoal.xEnd && 
+			pointerGoal.yStart < pointer.y && pointer.y < pointerGoal.yEnd){
+			drawEnd();	
+		}
+	}
+	
+	function drawEnd(){
+		clearInterval(drawInterval);
+		finishTimer();
+	}
+	
 });
+	
+
+// 時間計測
+var timer1,
+	startTime,
+	finishTime,
+	status;
+	
+
+function startTimer(){
+    startTime = new Date();
+    timer1 = setInterval("getTime()",500);
+}
+function getTime(){
+    var currentTime = new Date();
+    status = Math.floor((currentTime - startTime) / 1000);
+    $('#time-value').text(status);
+    console.log(status);
+}
+function finishTimer(){
+	finishTime = status;
+	clearInterval(timer1);
+		alert('終わり');
+}
+
 </script>
 </body>
 </html>
