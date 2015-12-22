@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Cosplay Tailors</title>
+<link href="css/reset.css" rel="stylesheet" type="text/css">
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+</head>
+<body>
+<script>
+$(function(){
+	
+	var head = $.cookie('costumeHead');
+	var up = $.cookie('costumeUp');
+	var under = $.cookie('costumeUnder');
+	
+	// 画像を選んだ画像に変更する
+	$("#cosplay_image").attr('src', 'img/char_woman.png')
+	$("#cosplay_image1").attr('src', 'img/'+head+'_head.png');
+	$("#cosplay_image2").attr('src', 'img/'+up+'_up.png');
+	$("#cosplay_image3").attr('src', 'img/'+under+'_under.png');
+	
+	
+	// 作り手の得意なカテゴリを設定する
+	var greatCategory,
+		category = [];
+	var maker = $.cookie('selectedMaker');
+	
+	switch(maker){
+		case 'sm01':
+			greatCategory = 'a';
+			category = ['majo'];
+			break;
+		case 'sm02':
+			greatCategory = 'b';
+			category = ['santa'];
+		case 'sm03':
+			greatCategory = 'c';
+			category = [''];
+			break;
+	}
+	
+	
+	if(category.indexOf(head) >= 0){
+		console.log("head", '得意');
+		$("#cosplay_image1").addClass('quality_high')
+	}else{
+		console.log("head", '不得意');
+		$("#cosplay_image1").addClass('quality_low')
+	}
+	
+	if(category.indexOf(up) >= 0){
+		console.log("up", '得意');
+		$("#cosplay_image2").addClass('quality_high')
+	}else{
+		console.log("up", '不得意');
+		$("#cosplay_image2").addClass('quality_low')
+	}
+	
+	if(category.indexOf(under) >= 0){
+		console.log("under", '得意');
+		$("#cosplay_image3").addClass('quality_high')
+	}else{
+		console.log("under", '不得意');
+		$("#cosplay_image3").addClass('quality_low')
+	}
+	
+	
+	$(".review_btn").click(function(){
+		$.cookie('review', $(this).attr('id'));
+		window.location.href = "end_req.html";
+	});
+
+
+	// 衣装ごとにカテゴリを設定する
+});
+</script>
+<div id="wrap">
+	<div id="main">
+	
+		<header>
+			<h1><a href="index.html"><img src="img/head.png" /></a></h1>
+		</header>
+	
+		<div id="fn_head" style="padding-left:0; width: 90%;">
+			<p>
+				完成しました！<br>
+				今回の仕上がりはこのようになりました。<br>
+				完成度はいかがですか？
+			</p>
+		</div><!-- #fn_head -->
+		<div id="fn_img">
+			<div id="cosplay_images">
+				<img id="cosplay_image" />
+	            <img id="cosplay_image1" />
+	            <img id="cosplay_image2" />
+	            <img id="cosplay_image3" />
+				<img src="img/char1.png" />
+                <img src="img/char2.png" />
+                <img src="img/char3.png" />
+			</div><!-- #fn_img -->
+		</div>
+		<div id="review_btn_wrap">
+			<span class="review_btn" id="rvbtn1"><img src="img/asses1.png" /></span>
+			<span class="review_btn" id="rvbtn2"><img src="img/asses2.png" /></span>
+			<span class="review_btn" id="rvbtn3"><img src="img/asses3.png" /></span>
+		</div>
+	
+	</div><!-- #main -->
+</div><!-- #wrap -->
+</body>
+</html>
