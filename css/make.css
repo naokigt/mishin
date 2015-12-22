@@ -1,0 +1,157 @@
+/* page-order */
+html, body{
+	height: 100%;
+}
+
+.text-center{
+	text-align: center;
+}
+.dash-btn{
+	/*width: 50%;*/
+	/*font-size: 20px;*/
+	margin-top: 50px;
+	/*margin: 50px auto 0 auto;*/
+	/*padding: 15px 40px;*/
+	/*background: #FC6;*/
+	/*border: 5px dashed #f33;*/
+	/*border-radius: 15px;*/
+	/*box-shadow: 1px 2px 4px -1px rgba(50, 50, 50, 0.5);*/
+	display: block;
+	width: 100%;
+}
+.dash-btn > img{
+	width: 80%;
+	max-width: 250px;
+}
+.dash-btn-disabled{
+	/*background: #FC6;*/
+	opacity: 0.3;
+}
+
+#page-order{
+	/*width: 100%;*/
+	height: 100%;
+    min-height: 100%;
+	background:url(img/bgg.png);
+	/*display: none;*/
+}
+#page-order h2{
+	padding: 10px;
+}
+#page-order p{
+	padding: 0 20px;
+	line-height: 1.4;
+}
+#page-order #head-image{
+	width: 100%;
+}
+.order-image{
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin: 0 auto;
+	max-width: 40%;
+	display: block;
+}
+#page-order-message{
+	text-align: center;
+}
+#page-order-message #new_request{
+	display: block;
+	margin: 0 auto;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	width: 50%;
+	max-width: 300px;
+}
+
+#page-order-main{
+	display: none;
+}
+
+
+#page-mishin{
+	background-image: url('img/back_red.png');
+	height: 100%;
+	max-height: 100%;
+	display: none;
+}
+#canvas,
+#canvas-pointer,
+#canvas-tutorial,
+#tutorial-wrapper{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+
+#canvas{
+	z-index: 0;
+}
+#canvas-pointer{
+	z-index: 1;
+}
+#canvas-tutorial{
+	z-index: 2;
+	background-color: rgba(0, 0, 0, 0.4);
+	/*display: none;*/
+	text-align: center;
+}
+.draw-start-wrapper{
+	position: absolute;
+    z-index: 2;
+    top: 420px;
+    left: 90px;
+    right: 0;
+    text-align: center;
+    min-width: 100%;
+}
+#draw-start{
+    min-width: 200px;
+	
+}
+#page-finish{
+	height: 100%;
+    min-height: 100%;
+	background:url(img/bgg.png);
+	display: none;
+}
+#page-finish #head-image{
+	width: 100%;
+}
+.page-finish-main img{
+	position: absolute;
+	top: 200px;
+	left: 115px;
+	max-width: 40%;
+	display: block;
+}
+.page-finish-main .man{
+	z-index: 1;
+}
+.page-finish-main .costume{
+	z-index: 2;
+}
+.finish-message{
+	padding: 30px;
+	display: inline-block;
+	line-height: 1.4;
+}
+
+
+#new_request{
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0.5s;
+  animation-delay:0.5s;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+.order-message-after{
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 1.5s;
+  animation-delay:1.5s;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}

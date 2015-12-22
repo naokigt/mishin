@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Cosplay Tailors</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/make.css">
+<link rel="stylesheet" href="css/animate.css">
+</head>
+<body>
+<div id="page-order">
+	<!--<h2>製作者</h2>-->
+	<header>
+		<h1><img src="img/head.png" id="head-image"></h1>
+	</header>
+	<div id="page-order-message">
+		<img src="img/new_request.png" id="new_request" alt="">
+		<p class="text-center order-message-after">新しい依頼が１件届いています</p>
+		<span class="dash-btn order-message-after"><img src="img/next_btn.png" /></span>
+	</div>
+	<div id="page-order-main">
+		<img class="order-image" src="img/majo.png">
+		<p>今回は依頼を受けたこちらの衣装を製作していきます。</p>
+		<div style="text-align: center;">
+		<span class="dash-btn"><img src="img/next_btn.png" /></span>
+		</div>
+	</div>
+</div>
+<div id="page-mishin">
+	<div id="tutorial-wrapper">
+		<div id="tutorial-inner">
+			<canvas id="canvas-tutorial"></canvas>
+			<div class="draw-start-wrapper">
+				<span id="draw-start" class="dash-btn dash-btn-disabled" disabled=disabled><img src="img/start_btn.png"></img></span>
+			</div>
+		</div>
+	</div>
+	<canvas id="canvas"></canvas>
+	<canvas id="canvas-pointer"></canvas>
+	<button id="finish-button" style="margin: 10px; position: absolute; z-index: 5;">終了</button>
+	<!--<div class="debug-box">-->
+	<!--	<span id="beta-value">0</span><br><br>-->
+	<!--	<span id="gamma-value">0</span><br><br>-->
+		<!--<span id="pointer-value">0</span><br><br>-->
+	<!--	r:<span id="r-value">0</span><br><br>-->
+	<!--	g:<span id="g-value">0</span><br><br>-->
+	<!--	b:<span id="b-value">0</span><br><br>-->
+	<!--	a:<span id="a-value">0</span><br><br>-->
+	<!--	time:<span id="time-value">0</span><br><br>-->
+	<!--</div>-->
+</div>
+<div id="page-finish">
+	<header>
+		<h1><img src="img/head.png" id="head-image"></h1>
+	</header>
+	<div class="page-finish-main">
+		<p class="finish-message">
+			<!--お疲れ様でした<br>-->
+			<span id="finish-time"></span>
+		</p>
+		<img src="img/majo.png" class="costume">
+		<img src="img/char_woman.png" class="man" alt="">
+	</div>
+</div>
+
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/make.js"></script>
+
+</body>
+</html>
