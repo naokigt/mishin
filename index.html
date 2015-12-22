@@ -2,50 +2,116 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>Cosplay Tailors</title>
 <link href="css/reset.css" rel="stylesheet" type="text/css">
 <link href="css/style.css" rel="stylesheet" type="text/css">
 <script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+<script>
+var posValue = 'btn2',
+	sexValue = 'man',
+	nameValue = '';
+$(function(){
+	 //console.log(posValue);
+	$(".pos").click(function(){
+		 $("#btn1").attr({
+		 	'src': 'img/btn1.png',
+		 	'data-pos': 'off'
+		 });
+		 $("#btn2").attr({
+		 	'src': 'img/btn2.png',
+		 	'data-pos': 'off'
+		 });
+		 $("#btn3").attr({
+		 	'src': 'img/btn3.png',
+		 	'data-pos': 'off'
+		 });
+		 
+		 $(this).attr('src', 'img/'+$(this).attr('id')+'a.png')
+		 	    .attr('data-pos', $(this).attr('id'));
+		 posValue = $(this).attr('id');
+		 //console.log(posValue);
+		// console.log($(this).attr('data-pos'));
+	});
+	
+	$("#next-btn-index").click(function() {
+		 $.cookie('position', posValue);
+		 $.cookie('sex', sexValue);
+		 $.cookie('userName', $("#name_ipt").val());
+		 switch (posValue){
+		 	case 'btn1':
+		 		window.location.href = 'orientation.html';
+		 		break;
+		 	case 'btn2':
+		 		window.location.href = 'select.html';
+		 		break;
+		 	case 'btn3':
+		 		window.location.href = 'select.html';
+		 		break;
+		 }
+	});
+	
+});
+// console.log(sexValue);
+function sexChange(){
+	 if($("#sex").attr('data-sex') == "man"){
+		 
+		 $('#sex').attr('src', 'img/woman.png');
+		 $('#sex').attr('data-sex', 'woman');
+		 sexValue = 'woman';
+  
+     }else if($("#sex").attr('data-sex') == "woman"){
+  
+		 $('#sex').attr('src', 'img/man.png');
+		 $('#sex').attr('data-sex', 'man');
+		 sexValue = 'man';
+  
+     }
+     //console.log(sexValue);
+}
+</script>
 </head>
 
 <body>
 <div id="wrap">
-<div id="main">
-
-<header>
-	<h1><a href="index.html"><img src="img/head.png" /></a></h1>
-</header>
-
-<div id="btn_box">
-	<h2><span>Position</span></h2>
-<div id="btn_in">
-	<div class="btn">
-    	<img src="img/btn1.png" />
-    </div><!-- .btn -->
-    <div class="btn">
-    	<img src="img/btn2.png" />
-    </div><!-- .btn -->
-    <div class="btn">
-    	<img src="img/btn3.png" />
-    </div><!-- .btn -->
-</div><!-- btn_in -->
-</div><!-- btn_box -->
-
-
-<div id="fm_box">
-<form>
-	<h2><span>Name</span></h2>
-    <div id="ipt_box">
-    	<input type="button" id="sex_ipt" />
-        <input type="text" id="name_ipt" /><br>
-    	<input type="submit" id="submit_ipt" value="NEXT" />
-	</div><!-- #ipt_box -->
-</form>    
-</div><!-- fm_box -->
-
-
-</div><!-- #main -->
+	<div id="main">
+		<header>
+			<h1><a href="index.html"><img src="img/head.png" /></a></h1>
+		</header>
+		<div id="btn_box">
+			<h2><span>Position</span></h2>
+			<div id="btn_in">
+			    <div class="btn">
+			    	<img src="img/btn2a.png" class="pos" id="btn2" data-pos="btn2" />
+			    </div><!-- .btn -->
+				<div class="btn">
+			    	<img src="img/btn1.png" class="pos" id="btn1" data-pos="off" />
+			    </div><!-- .btn -->
+			    <div class="btn">
+			    	<img src="img/btn3.png" class="pos" id="btn3" data-pos="off" />
+			    </div><!-- .btn -->
+			    <input type="hidden" id="position-value" name="position" value="btn1">
+			</div><!-- btn_in -->
+		</div><!-- btn_box -->
+		
+		<div id="fm_box">
+			<form action="select.html" method="post">
+				<h2><span>Name</span></h2>
+			    <div id="ipt_box">
+			    	<img onClick="sexChange();" id="sex" data-sex="man" src="img/man.png" />
+			    	<input type="text" id="name_ipt" placeholder="名前を入力してください" />
+				</div><!-- #ipt_box -->
+			    
+			    <div id="next_box">
+			    <!--<a href="select.html"><img src="img/next.png" /></a>-->
+			    <span id="next-btn-index" class=""><img src="img/next_btn.png" /></span>
+			    </div><!-- #next_box -->
+			</form>    
+		</div><!-- fm_box -->
+	
+	</div><!-- #main -->
 </div><!-- #wrap -->
 </body>
 </html>

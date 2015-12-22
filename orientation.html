@@ -1,10 +1,11 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Cosplay Tailors</title>
 <link rel="stylesheet" href="css/reset.css">
-<title>3D ミシン</title>
+<link rel="stylesheet" href="css/animate.css">
 <style>
 /* page-order */
 html, body{
@@ -16,13 +17,20 @@ html, body{
 }
 .dash-btn{
 	/*width: 50%;*/
-	font-size: 20px;
-	margin: 50px auto 0 auto;
-	padding: 15px 40px;
-	background: #FC6;
-	border: 5px dashed #f33;
-	border-radius: 15px;
-	box-shadow: 1px 2px 4px -1px rgba(50, 50, 50, 0.5);
+	/*font-size: 20px;*/
+	margin-top: 50px;
+	/*margin: 50px auto 0 auto;*/
+	/*padding: 15px 40px;*/
+	/*background: #FC6;*/
+	/*border: 5px dashed #f33;*/
+	/*border-radius: 15px;*/
+	/*box-shadow: 1px 2px 4px -1px rgba(50, 50, 50, 0.5);*/
+	display: block;
+	width: 100%;
+}
+.dash-btn > img{
+	width: 80%;
+	max-width: 250px;
 }
 .dash-btn-disabled{
 	/*background: #FC6;*/
@@ -62,6 +70,7 @@ html, body{
 	padding-top: 20px;
 	padding-bottom: 20px;
 	width: 50%;
+	max-width: 300px;
 }
 
 #page-order-main{
@@ -82,6 +91,7 @@ html, body{
 	position: absolute;
 	top: 0;
 	left: 0;
+	z-index: 10;
 }
 
 #canvas{
@@ -136,6 +146,24 @@ html, body{
 	display: inline-block;
 	line-height: 1.4;
 }
+
+
+#new_request{
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0.5s;
+  animation-delay:0.5s;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+.order-message-after{
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 1.5s;
+  animation-delay:1.5s;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
 </style>
 </head>
 <body>
@@ -149,14 +177,14 @@ html, body{
 	</header>
 	<div id="page-order-message">
 		<img src="img/new_request.png" id="new_request" alt="">
-		<p class="text-center">新しい依頼が１件届いています</p>
-		<button class="dash-btn">次へ</button>
+		<p class="text-center order-message-after">新しい依頼が１件届いています</p>
+		<span class="dash-btn order-message-after"><img src="img/next_btn.png" /></span>
 	</div>
 	<div id="page-order-main">
 		<img class="order-image" src="img/majo.png">
 		<p>今回は依頼を受けたこちらの衣装を製作していきます。</p>
 		<div style="text-align: center;">
-			<button class="dash-btn">体験へ</button>
+		<span class="dash-btn"><img src="img/next_btn.png" /></span>
 		</div>
 	</div>
 </div>
@@ -165,12 +193,13 @@ html, body{
 		<div id="tutorial-inner">
 			<canvas id="canvas-tutorial"></canvas>
 			<div class="draw-start-wrapper">
-				<button id="draw-start" class="dash-btn dash-btn-disabled" disabled=disabled>スタート</button>
+				<span id="draw-start" class="dash-btn dash-btn-disabled" disabled=disabled><img src="img/start_btn.png"></img></span>
 			</div>
 		</div>
 	</div>
 	<canvas id="canvas"></canvas>
 	<canvas id="canvas-pointer"></canvas>
+	<button id="finish-button" style="margin: 10px; position: absolute; z-index: 5;">終了</button>
 	<!--<div class="debug-box">-->
 	<!--	<span id="beta-value">0</span><br><br>-->
 	<!--	<span id="gamma-value">0</span><br><br>-->
@@ -188,7 +217,7 @@ html, body{
 	</header>
 	<div class="page-finish-main">
 		<p class="finish-message">
-			お疲れ様でした<br>
+			<!--お疲れ様でした<br>-->
 			<span id="finish-time"></span>
 		</p>
 		<img src="img/majo.png" class="costume">
@@ -197,17 +226,24 @@ html, body{
 </div>
 
 <script src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
 <!-- <script src="js/main.js"></script> -->
 <script>
 $(function(){
 	
-	// var canvas = {};
+	// setTimeout(function(){
+	// 	$("#new_request").slideDown('slow', function(){
+	// 		$(".order-message-after").slideDown('slow');
+	// 	});
+		$("#new_request").addClass('animated fadeInDown');
+		$(".order-message-after").addClass('animated fadeInDown')
+	// }, 500);
 	
 	// メッセージの受け取り画面
 	$("#page-order-message .dash-btn").click(function() {
-	    $("#page-order-message").fadeOut('fast', function(){
-	    	$("#page-order-main").fadeIn('fast');
-	    });
+	    $("#page-order-message").hide();
+	    	$("#page-order-main").show();
+
 	});
 	
 	// 製作する衣装の確認画面
@@ -217,7 +253,18 @@ $(function(){
 			startTutorial();
 	   });
 	});
+	console.log($.cookie('position'));
+	if($.cookie('position') == 'btn3'){
+		$("#page-order-message").hide();
+		$("#page-order").hide();
+		$("#page-mishin").show();
+	}
 	
+	
+	// プレゼン用の終了ボタン
+	$("#finish-button").click(function() {
+		drawEnd();
+	});
 
 	
 	// キャンバスサイズをウインドウの大きさにする
@@ -238,19 +285,19 @@ $(function(){
 	var ctxp = canvasInit("canvas-pointer"); // 先頭の糸の動きを描画
 	var ctxt = canvasInit("canvas-tutorial"); // チュートリアルを描画
 	
-	var rangeImagePath = "https://preview.c9users.io/naokigt/mishin-3d/img/ginger_cookie_2.png";
+	var rangeImagePath = "https://preview.c9users.io/naokigt/mishin-3d/img/ginger_cookie_3.png";
     drawingImage(rangeImagePath);
 
 	// 初期の糸の位置
 	var pointer = {
-		x: 115,
+		x: 112,
 		y: 83
-	};
+	 };
 	
 	var pointerGoal = {
-		circleX: 130,
-		circleY: 55,
-		circleRadius: 8
+		circleX: 133,
+		circleY: 50,
+		circleRadius: 7
 	}
 	
 	var drawInterval;
@@ -294,7 +341,9 @@ $(function(){
 		}
 	}
 	$('#draw-start').click(function(){
-		endTutorial();
+		if( ! $(this).hasClass('dash-btn-disabled')){
+			endTutorial();
+		}
 	});
 
 	// チュートリアルの描画
@@ -351,8 +400,8 @@ $(function(){
 		var lineLengthX = Math.floor(gamma / 3);
 		var lineLengthY = Math.floor(beta / 3);
 
-	    pointer.x = pointer.x + gamma;
-	    pointer.y = pointer.y + beta;
+	    pointer.x += gamma;
+	    pointer.y += beta;
 	    
 	    if(pointer.x > canvasWidth){
 	    	pointer.x = canvasWidth;
@@ -386,12 +435,12 @@ $(function(){
 	function drawingLeadPointer(){
 		ctxp.clearRect(0, 0, canvasWidth, canvasHeight);
 		
-	    ctxp.fillStyle = "#3333ff"; //線のカラー設定
+	    ctxp.fillStyle = "#9999ff"; //線のカラー設定
         // ctxp.lineWidth = 4; //線の太さ
         ctxp.lineCap = "round";
 		ctxp.beginPath();
-		// 半径2
-		ctxp.arc(pointer.x, pointer.y, 4, 0, Math.PI*2, true);
+		// 第三引数 => 半径
+		ctxp.arc(pointer.x, pointer.y, 3, 0, Math.PI*2, true);
 		ctxp.fill();
 
 		 //(140,80)を中心点とする、半径50の円弧を、開始角度90度、終了角度180度で、半時計回りに作成する
@@ -432,8 +481,8 @@ $(function(){
 		clearInterval(drawInterval);
 		finishTimer();
 		$("#page-mishin").fadeOut('slow', function() {
-			$("#page-finish").fadeIn('fast');
-			$("#finish-time").text("今回の製作時間は"+finishTime+"秒でした");
+			// $("#page-finish").fadeIn('fast');
+			// $("#finish-time").text("今回の製作時間は"+finishTime+"秒です");
 		});
 	}
 	
@@ -449,13 +498,13 @@ $(function(){
 		}
 	}
 	
-});
 	
+});
 
 // 時間計測
 var timer1,
 	startTime,
-	finishTime,
+	finishTime = 0,
 	status;
 	
 
@@ -473,6 +522,8 @@ function finishTimer(){
 	finishTime = status;
 	clearInterval(timer1);
 		// alert('終わり');
+	$.cookie('finishTime', finishTime);
+	window.location.href = "end.html";
 }
 
 </script>
