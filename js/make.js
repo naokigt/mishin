@@ -27,6 +27,7 @@ $(function(){
 		$("#page-order-message").hide();
 		$("#page-order").hide();
 		$("#page-mishin").show();
+		startTutorial();
 	}
 	
 	
@@ -47,6 +48,8 @@ $(function(){
 		canvasEl.style.height = window.innerHeight + 'px';
 		canvasEl.width = window.innerWidth;
 		canvasEl.height = window.innerHeight;
+		console.log(canvasEl.width)
+		console.log(canvasEl.height)
 		return canvasEl.getContext("2d");
 	}
 	
@@ -54,18 +57,22 @@ $(function(){
 	var ctxp = canvasInit("canvas-pointer"); // 先頭の糸の動きを描画
 	var ctxt = canvasInit("canvas-tutorial"); // チュートリアルを描画
 	
-	var rangeImagePath = "https://preview.c9users.io/naokigt/mishin-3d/img/ginger_cookie_3.png";
+	var rangeImagePath = "img/ginger_cookie_3.png";
     drawingImage(rangeImagePath);
 
 	// 初期の糸の位置
+	var tmp_x = Math.round(window.innerWidth * 0.3);
+	var tmp_y = Math.round(window.innerHeight * 0.13);
 	var pointer = {
-		x: 112,
-		y: 83
+		x: tmp_x,
+		y: tmp_y
 	 };
 	
+	tmp_x = Math.round(window.innerWidth * 0.35);
+	tmp_y = Math.round(window.innerHeight * 0.08);
 	var pointerGoal = {
-		circleX: 133,
-		circleY: 50,
+		circleX: tmp_x,
+		circleY: tmp_y,
 		circleRadius: 7
 	}
 	
@@ -123,7 +130,7 @@ $(function(){
 		 	var imageHeight = (img.height * (imageWidth / img.width));
 		  	ctxt.drawImage(img, imageWidth*0.05, imageHeight*0.05, imageWidth*0.9, imageHeight*0.9);
 	 	}
-	 	img.src = "img/ginger_cookie_tutorial.png";
+	 	img.src = "img/ginger_cookie_tutorial_3.png";
 	}
 	// チュートリアルを終わる
 	function endTutorial(){
@@ -204,12 +211,12 @@ $(function(){
 	function drawingLeadPointer(){
 		ctxp.clearRect(0, 0, canvasWidth, canvasHeight);
 		
-	    ctxp.fillStyle = "#9999ff"; //線のカラー設定
+	    ctxp.fillStyle = "#ff3333"; //線のカラー設定
         // ctxp.lineWidth = 4; //線の太さ
         ctxp.lineCap = "round";
 		ctxp.beginPath();
 		// 第三引数 => 半径
-		ctxp.arc(pointer.x, pointer.y, 3, 0, Math.PI*2, true);
+		ctxp.arc(pointer.x, pointer.y, 5, 0, Math.PI*2, true);
 		ctxp.fill();
 
 		 //(140,80)を中心点とする、半径50の円弧を、開始角度90度、終了角度180度で、半時計回りに作成する

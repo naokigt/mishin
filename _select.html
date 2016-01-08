@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -35,9 +36,17 @@
           .attr( "src","img/"+dragId+"_head.png" )
 		  .css( "visibility","visible" );
 		imageHead = dragId;
-		isPartsSelectedCheck();
-      }
-    });
+		isNext();
+		
+		 $( "#dialog" ).dialog({
+			 modal: true,
+			 draggable: false,
+			 closeOnEscape: false,
+			 resizable: false,
+			 open:function(event, ui){
+				 $(".ui-dialog-titlebar-close").hide();
+				}}).html("<img onClick='headColor(this);' id='"+dragId+"' src='img/"+dragId+"_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"02' src='img/"+dragId+"02_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"03' src='img/"+dragId+"03_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"04' src='img/"+dragId+"04_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"05' src='img/"+dragId+"05_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"06' src='img/"+dragId+"06_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"07' src='img/"+dragId+"07_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"08' src='img/"+dragId+"08_head.png' width='25%'/>"); 
+		 }});
 	
 	$( "#snaptarget2" ).droppable({
       drop: function( event, ui ) {
@@ -45,7 +54,15 @@
           .attr( "src","img/"+dragId+"_up.png" )
 		  .css( "visibility","visible" );
 		imageUp = dragId;
-		isPartsSelectedCheck();
+		isNext();
+		 $( "#dialog" ).dialog({
+			 modal: true,
+			 draggable: false,
+			 closeOnEscape: false,
+			 resizable: false,
+			 open:function(event, ui){
+				 $(".ui-dialog-titlebar-close").hide();
+				}}).html("<img onClick='upColor(this);' id='"+dragId+"' src='img/"+dragId+"_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"02' src='img/"+dragId+"02_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"03' src='img/"+dragId+"03_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"04' src='img/"+dragId+"04_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"05' src='img/"+dragId+"05_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"06' src='img/"+dragId+"06_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"07' src='img/"+dragId+"07_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"08' src='img/"+dragId+"08_up.png' width='25%'/>");
       }
     });
 	
@@ -55,11 +72,19 @@
           .attr( "src","img/"+dragId+"_under.png" )
 		  .css( "visibility","visible" );
 		imageUnder = dragId;
-		isPartsSelectedCheck();
+		isNext();
+		 $( "#dialog" ).dialog({
+			 modal: true,
+			 draggable: false,
+			 closeOnEscape: false,
+			 resizable: false,
+			 open:function(event, ui){
+				 $(".ui-dialog-titlebar-close").hide();
+				}}).html("<img onClick='underColor(this);' id='"+dragId+"' src='img/"+dragId+"_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"02' src='img/"+dragId+"02_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"03' src='img/"+dragId+"03_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"04' src='img/"+dragId+"04_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"05' src='img/"+dragId+"05_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"06' src='img/"+dragId+"06_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"07' src='img/"+dragId+"07_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"08' src='img/"+dragId+"08_under.png' width='25%'/>");
       }
     });
     
-    function isPartsSelectedCheck(){
+    function isNext(){
         // ３つのパーツが選択されたら
         if( !! imageHead == true &&  !! imageUp == true &&  !! imageUnder == true){
             $(".dash-btn").removeClass('dash-btn-disabled');
@@ -74,16 +99,45 @@
             $.cookie('costumeUp', imageUp);
             $.cookie('costumeUnder', imageUnder);
            if($.cookie('position') == 'btn2') {
-                window.location.href = 'select_maker.html';
+                window.location.href = 'end.html';
            }else if($.cookie('position') == 'btn3') {
-    			window.location.href = 'make.html';
+    			window.location.href = 'orientation.html';
            }
         }
     });
 	
+	
   });
+  
+	function headColor(imgId){
+	  	var id=imgId.id;
+		$( "#snaptarget1_img" ).attr( "src","img/"+id+"_head.png" );
+		$("#dialog").dialog("close");
+	};
+	function upColor(imgId){
+	  	var id=imgId.id;
+		$( "#snaptarget2_img" ).attr( "src","img/"+id+"_up.png" );
+		$("#dialog").dialog("close");
+	};
+	function underColor(imgId){
+	  	var id=imgId.id;
+		$( "#snaptarget3_img" ).attr( "src","img/"+id+"_under.png" );
+		$("#dialog").dialog("close");
+	};
   </script>
-
+<style>
+.ui-dialog-titlebar{
+	background: rgba(255,250,155,0.95);
+	border-radius: 10px 10px 0 0;
+	padding: 5px 0;
+	text-align:center;
+	font-family: 'MyFont';
+}
+.ui-dialog-content{
+	border-radius: 0 0 10px 10px;
+	background: rgba(255,255,250,0.95);
+}
+</style>
 </head>
 
 <body>
@@ -113,36 +167,24 @@
                         <img src="img/majo.png"  />
                     </div><!-- .av_in -->
                 </div><!-- .av_box -->
+                
+                <div id="dialog" title="色を選んでください"></div>
+                
+                <div class="av_box draggable" id="char_woman">
+                    <div class="av_in ui-widget-content">
+                        <img src="img/char_woman.png"  />
+                    </div><!-- .av_in -->
+                </div><!-- .av_box -->
                 <div class="av_box draggable" id="santa">
                     <div class="av_in ui-widget-content">
                         <img src="img/santa.png"  />
                     </div><!-- .av_in -->
                 </div><!-- .av_box -->
-                <div class="av_box draggable" id="akuma">
+                <div class="av_box draggable">
                     <div class="av_in ui-widget-content">
-                        <img src="img/akuma.png"  />
+                        <img src="img/majo.png"  />
                     </div><!-- .av_in -->
-                </div><!-- .av_box -->
-                <div class="av_box draggable" id="tensi">
-                    <div class="av_in ui-widget-content">
-                        <img src="img/tensi.png"  />
-                    </div><!-- .av_in -->
-                </div><!-- .av_box -->
-                <div class="av_box draggable" id="heisi">
-                    <div class="av_in ui-widget-content">
-                        <img src="img/heisi.png"  />
-                    </div><!-- .av_in -->
-                </div><!-- .av_box -->
-                <div class="av_box draggable" id="v_neck_gundam">
-                    <div class="av_in ui-widget-content">
-                        <img src="img/v_neck_gundam.png"  />
-                    </div><!-- .av_in -->
-                </div><!-- .av_box -->
-                <div class="av_box draggable" id="halloween">
-                    <div class="av_in ui-widget-content">
-                        <img src="img/halloween.png"  />
-                    </div><!-- .av_in -->
-                </div><!-- .av_box -->
+
             </div><!-- #right_box -->
         </div><!-- #box_wrap -->
             
