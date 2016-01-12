@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Cosplay Tailors</title>
+<link href="css/reset.css" rel="stylesheet" type="text/css">
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+
+<script src="js/jquery.ui.touch-punch.js" type="text/javascript"></script>
+  <script>
+  $(function() {
+    var dragId;
+    var imageHead = false,
+        imageUp = false,
+        imageUnder = false;
+    $( ".draggable" ).draggable({
+	  snap:".ui-widget-header",
+	  revert: "invalid" ,
+      cursorAt: { top: 5, left: 5 },
+      helper: function( event ) {
+        dragId = $(this).attr('id');
+        // console.log(dragId);
+        return $( "<div class='ui-widget-header av_box2'><div class='av_in2'><img src='img/"+$(this).attr('id')+".png' /></div></div>" );
+      }
+    });
+	
+	
+	$( "#snaptarget1" ).droppable({
+      drop: function( event, ui ) {
+        $( "#snaptarget1_img" )
+          .attr( "src","img/"+dragId+"_head.png" )
+		  .css( "visibility","visible" );
+		imageHead = dragId;
+		isPartsSelectedCheck();
+      }
+    });
+	
+	$( "#snaptarget2" ).droppable({
+      drop: function( event, ui ) {
+        $( "#snaptarget2_img" )
+          .attr( "src","img/"+dragId+"_up.png" )
+		  .css( "visibility","visible" );
+		imageUp = dragId;
+		isPartsSelectedCheck();
+      }
+    });
+	
+	$( "#snaptarget3" ).droppable({
+      drop: function( event, ui ) {
+        $( "#snaptarget3_img" )
+          .attr( "src","img/"+dragId+"_under.png" )
+		  .css( "visibility","visible" );
+		imageUnder = dragId;
+		isPartsSelectedCheck();
+      }
+    });
+    
+    function isPartsSelectedCheck(){
+        // ３つのパーツが選択されたら
+        if( !! imageHead == true &&  !! imageUp == true &&  !! imageUnder == true){
+            $(".dash-btn").removeClass('dash-btn-disabled');
+        }else{
+            $(".dash-btn").addClass('dash-btn-disabled');
+        }
+    }
+    
+    $("#next-btn-start").click(function(){
+        if($(".dash-btn").hasClass('dash-btn-disabled') === false){
+            $.cookie('costumeHead', imageHead);
+            $.cookie('costumeUp', imageUp);
+            $.cookie('costumeUnder', imageUnder);
+           if($.cookie('position') == 'btn2') {
+                window.location.href = 'select_maker.html';
+           }else if($.cookie('position') == 'btn3') {
+    			window.location.href = 'make.html';
+           }
+        }
+    });
+	
+  });
+  </script>
+
+</head>
+
+<body>
+<div id="wrap">
+    <div id="main">
+        <header>
+        	<h1><img src="img/head.png" /></h1>
+        </header>
+        <div id="box_wrap">
+            <div id="left_box">
+                <img src="img/char_woman.png"  id="snaptarget" />
+                
+                <img id="snaptarget1_img" />
+                <img id="snaptarget2_img" />
+                <img id="snaptarget3_img" />
+                
+                <img src="img/char1.png"  id="snaptarget1" class="ui-widget-header" />
+                <img src="img/char2.png"  id="snaptarget2" class="ui-widget-header" />
+                <img src="img/char3.png"  id="snaptarget3" class="ui-widget-header" />
+                
+            </div><!-- #left_box -->
+            
+            <div id="right_box">
+            
+                <div class="av_box draggable" id="majo">
+                    <div class="av_in ui-widget-content">
+                        <img src="img/majo.png"  />
+                    </div><!-- .av_in -->
+                </div><!-- .av_box -->
+                <div class="av_box draggable" id="santa">
+                    <div class="av_in ui-widget-content">
+                        <img src="img/santa.png"  />
+                    </div><!-- .av_in -->
+                </div><!-- .av_box -->
+                <div class="av_box draggable" id="akuma">
+                    <div class="av_in ui-widget-content">
+                        <img src="img/akuma.png"  />
+                    </div><!-- .av_in -->
+                </div><!-- .av_box -->
+                <div class="av_box draggable" id="tensi">
+                    <div class="av_in ui-widget-content">
+                        <img src="img/tensi.png"  />
+                    </div><!-- .av_in -->
+                </div><!-- .av_box -->
+                <div class="av_box draggable" id="heisi">
+                    <div class="av_in ui-widget-content">
+                        <img src="img/heisi.png"  />
+                    </div><!-- .av_in -->
+                </div><!-- .av_box -->
+                <div class="av_box draggable" id="v_neck_gundam">
+                    <div class="av_in ui-widget-content">
+                        <img src="img/v_neck_gundam.png"  />
+                    </div><!-- .av_in -->
+                </div><!-- .av_box -->
+                <div class="av_box draggable" id="halloween">
+                    <div class="av_in ui-widget-content">
+                        <img src="img/halloween.png"  />
+                    </div><!-- .av_in -->
+                </div><!-- .av_box -->
+            </div><!-- #right_box -->
+        </div><!-- #box_wrap -->
+            
+        <div id="box_bot">
+        	<span id="next-btn-start" class="dash-btn dash-btn-disabled" style="margin-top: 20px;"><img src="img/next_btn.png" /></span>
+        </div><!-- #box_bot -->
+    
+    </div><!-- #main -->
+</div><!-- #wrap -->
+</body>
+</html>

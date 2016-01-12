@@ -186,7 +186,7 @@ input#name_ipt{
 #right_box{
 	width: 55%;
 	float: left;
-    padding-top: 90px;
+    padding-top: 10px;
 }
 
 .av_box{
@@ -416,8 +416,8 @@ input#name_ipt{
 #cosplay_images img#cosplay_image1{
 	width: 45%;
 	position:absolute;
-	z-index: 30;
-	transition: 2deg;
+	z-index: 70;
+	/*transition: 2deg;*/
 }
 
 #cosplay_images img#cosplay_image2{
@@ -429,12 +429,17 @@ input#name_ipt{
 #cosplay_images img#cosplay_image3{
 	width: 45%;
 	position:absolute;
-	z-index: 70;
+	z-index: 30;
 }
 
 /* 依頼側での完成図の出来栄え */
 .quality_low{
-	transform: scale(0.95);
+	/*transform: scale(0.95);*/
+	-webkit-filter: sepia(20%);
+    -moz-filter: sepia(20%);
+    -o-filter: sepia(20%);
+    -ms-filter: sepia(20%);
+    filter: sepia(20%);
 }
 .quality2_normal{
     transform: skew(0deg);
