@@ -13,7 +13,7 @@ $(function(){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost/cosplay-tailors-backend/public/api/add_makes.json",
+		url: "http://cosplay-tailors.www2.jp/php/public/api/add_makes.json",
 		dataType: 'json',
 		data: sendData
 	})
