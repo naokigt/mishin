@@ -14,6 +14,28 @@ var posValue = 'btn2',
 	sexValue = 'man',
 	nameValue = '';
 $(function(){
+	
+	// ランダムな文字列を生成し、ユーザの判断をする
+	var l = 8;
+	var c = "abcdefghijklmnopqrstuvwxyz0123456789";
+	var cl = c.length;
+	var r = "";
+	for(var i=0; i<l; i++){
+	  r += c[Math.floor(Math.random()*cl)];
+	}
+	
+	$.cookie('userHash', r);
+	// クッキーの削除
+	$.removeCookie('gender');
+	$.removeCookie('name');
+	$.removeCookie('position');
+	$.removeCookie('costume_head');
+	$.removeCookie('costume_up');
+	$.removeCookie('costume_under');
+	$.removeCookie('maker');
+	$.removeCookie('review');
+	$.removeCookie('finish_time');
+
 	 //console.log(posValue);
 	$(".pos").click(function(){
 		 $("#btn1").attr({
@@ -84,13 +106,13 @@ function sexChange(){
 			<h2><span>Position</span></h2>
 			<div id="btn_in">
 			    <div class="btn">
-			    	<img src="img/btn2a.png" class="pos" id="btn2" data-pos="btn2" />
+			    	<img src="img/btn2a.png" class="pos" id="btn2" data-pos="btn2" /><!-- 依頼 -->
 			    </div><!-- .btn -->
 				<div class="btn">
-			    	<img src="img/btn1.png" class="pos" id="btn1" data-pos="off" />
+			    	<img src="img/btn1.png" class="pos" id="btn1" data-pos="off" /><!-- 制作 -->
 			    </div><!-- .btn -->
 			    <div class="btn">
-			    	<img src="img/btn3.png" class="pos" id="btn3" data-pos="off" />
+			    	<img src="img/btn3.png" class="pos" id="btn3" data-pos="off" /><!-- 両方 -->
 			    </div><!-- .btn -->
 			    <input type="hidden" id="position-value" name="position" value="btn1">
 			</div><!-- btn_in -->

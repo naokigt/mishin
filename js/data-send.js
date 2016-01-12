@@ -1,8 +1,9 @@
 $(function(){
 	var sendData = {
+		user_hash : $.cookie('userHash'),
 		gender : $.cookie('sex'),
 		name : $.cookie('userName'),
-		posision : $.cookie('posision'),
+		position : $.cookie('position'),
 		costume_head : $.cookie('costumeHead'),
 		costume_up : $.cookie('costumeUp'),
 		costume_under : $.cookie('costumeUnder'),
