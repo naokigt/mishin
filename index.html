@@ -15,16 +15,16 @@ var posValue = 'btn2',
 	nameValue = '';
 $(function(){
 	
-	// ランダムな文字列を生成し、ユーザの判断をする
-	var l = 8;
-	var c = "abcdefghijklmnopqrstuvwxyz0123456789";
-	var cl = c.length;
-	var r = "";
-	for(var i=0; i<l; i++){
-	  r += c[Math.floor(Math.random()*cl)];
+	if( ! $.cookie('userHash')){
+		var l = 8;
+		var c = "abcdefghijklmnopqrstuvwxyz0123456789";
+		var cl = c.length;
+		var r = "";
+		for(var i=0; i<l; i++){
+		  r += c[Math.floor(Math.random()*cl)];
+		}
+		$.cookie('userHash', r);
 	}
-	
-	$.cookie('userHash', r);
 	// クッキーの削除
 	$.removeCookie('gender');
 	$.removeCookie('name');
