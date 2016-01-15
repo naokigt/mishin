@@ -16,7 +16,7 @@
         imageUp = false,
         imageUnder = false;
   $(function() {
-      
+
     var dragId;
     $( ".draggable" ).draggable({
 	  snap:".ui-widget-header",
@@ -28,8 +28,8 @@
         return $( "<div class='ui-widget-header av_box2'><div class='av_in2'><img src='img/"+$(this).attr('id')+".png' /></div></div>" );
       }
     });
-	
-	
+
+
 	$( "#snaptarget1" ).droppable({
         drop: function( event, ui ) {
         //     $( "#snaptarget1_img" )
@@ -37,7 +37,7 @@
     		  //.css( "visibility","visible" );
     // 		imageHead = dragId;
     // 		isNext();
-    		
+
     		$( "#dialog" ).dialog({
     			modal: true,
     			draggable: false,
@@ -53,10 +53,10 @@
     		"<img onClick='headColor(this);' id='"+dragId+"05' src='img/costume/"+dragId+"05_head.png' width='25%'/>"+
     		"<img onClick='headColor(this);' id='"+dragId+"06' src='img/costume/"+dragId+"06_head.png' width='25%'/>"+
     		"<img onClick='headColor(this);' id='"+dragId+"07' src='img/costume/"+dragId+"07_head.png' width='25%'/>"+
-    		"<img onClick='headColor(this);' id='"+dragId+"08' src='img/costume/"+dragId+"08_head.png' width='25%'/>"); 
+    		"<img onClick='headColor(this);' id='"+dragId+"08' src='img/costume/"+dragId+"08_head.png' width='25%'/>");
 	    }
 	});
-	
+
 	$( "#snaptarget2" ).droppable({
         drop: function( event, ui ) {
         //     $( "#snaptarget2_img" )
@@ -82,7 +82,7 @@
     		 "<img onClick='upColor(this);' id='"+dragId+"08' src='img/costume/"+dragId+"08_up.png' width='25%'/>");
         }
     });
-	
+
 	$( "#snaptarget3" ).droppable({
       drop: function( event, ui ) {
     //     $( "#snaptarget3_img" )
@@ -121,8 +121,8 @@
            }
         }
     });
-	
-	
+
+
   });
 	function headColor(imgId){
 	  	var id=imgId.id;
@@ -148,8 +148,8 @@
 		$( "#snaptarget3_img" ).attr( "src","img/costume/"+id+"_under.png" ).css( "visibility","visible" );
 		$("#dialog").dialog("close");
 	};
-	
-	    
+
+
     function isNext(){
         // ３つのパーツが選択されたら
         if( !! imageHead == true &&  !! imageUp == true &&  !! imageUnder == true){
@@ -158,8 +158,8 @@
             $(".dash-btn").addClass('dash-btn-disabled');
         }
     }
-    
-  
+
+
   </script>
 <style>
 .ui-dialog-titlebar{
@@ -185,64 +185,64 @@
         <div id="box_wrap">
             <div id="left_box">
                 <img src="img/char_woman.png"  id="snaptarget" />
-                
+
                 <img id="snaptarget1_img" />
                 <img id="snaptarget2_img" />
                 <img id="snaptarget3_img" />
-                
+
                 <img src="img/char1.png"  id="snaptarget1" class="ui-widget-header" />
                 <img src="img/char2.png"  id="snaptarget2" class="ui-widget-header" />
                 <img src="img/char3.png"  id="snaptarget3" class="ui-widget-header" />
-                
+
             </div><!-- #left_box -->
-            
+
             <div id="right_box">
-            
+
                 <div class="av_box draggable" id="majo">
                     <div class="av_in ui-widget-content">
-                        <img src="img/majo.png"  />
+                        <img src="img/costume/majo.png"  />
                     </div><!-- .av_in -->
                 </div><!-- .av_box -->
                 <div class="av_box draggable" id="santa">
                     <div class="av_in ui-widget-content">
-                        <img src="img/santa.png"  />
+                        <img src="img/costume/santa.png"  />
                     </div><!-- .av_in -->
                 </div><!-- .av_box -->
                 <div class="av_box draggable" id="akuma">
                     <div class="av_in ui-widget-content">
-                        <img src="img/akuma.png"  />
+                        <img src="img/costume/akuma.png"  />
                     </div><!-- .av_in -->
                 </div><!-- .av_box -->
                 <div class="av_box draggable" id="tensi">
                     <div class="av_in ui-widget-content">
-                        <img src="img/tensi.png"  />
+                        <img src="img/costume/tensi.png"  />
                     </div><!-- .av_in -->
                 </div><!-- .av_box -->
                 <div class="av_box draggable" id="heisi">
                     <div class="av_in ui-widget-content">
-                        <img src="img/heisi.png"  />
+                        <img src="img/costume/heisi.png"  />
                     </div><!-- .av_in -->
                 </div><!-- .av_box -->
                 <div class="av_box draggable" id="v_neck_gundam">
                     <div class="av_in ui-widget-content">
-                        <img src="img/v_neck_gundam.png"  />
+                        <img src="img/costume/v_neck_gundam.png"  />
                     </div><!-- .av_in -->
                 </div><!-- .av_box -->
                 <div class="av_box draggable" id="halloween">
                     <div class="av_in ui-widget-content">
-                        <img src="img/halloween.png"  />
+                        <img src="img/costume/halloween.png"  />
                     </div><!-- .av_in -->
                 </div><!-- .av_box -->
-                
+
                 <div id="dialog" title="色を選んでください"></div>
                 <div id="dummy"></div>
             </div><!-- #right_box -->
         </div><!-- #box_wrap -->
-            
+
         <div id="box_bot">
         	<span id="next-btn-start" class="dash-btn dash-btn-disabled" style="margin-top: 20px;"><img src="img/next_btn.png" /></span>
         </div><!-- #box_bot -->
-    
+
     </div><!-- #main -->
 </div><!-- #wrap -->
 </body>
