@@ -16,6 +16,7 @@
         imageUp = false,
         imageUnder = false;
   $(function() {
+      
     var dragId;
     $( ".draggable" ).draggable({
 	  snap:".ui-widget-header",
@@ -45,14 +46,21 @@
     			open:function(event, ui){
     				$(".ui-dialog-titlebar-close").hide();
     			}
-    		}).html("<img onClick='headColor(this);' id='"+dragId+"' src='img/"+dragId+"_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"02' src='img/"+dragId+"02_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"03' src='img/"+dragId+"03_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"04' src='img/"+dragId+"04_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"05' src='img/"+dragId+"05_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"06' src='img/"+dragId+"06_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"07' src='img/"+dragId+"07_head.png' width='25%'/><img onClick='headColor(this);' id='"+dragId+"08' src='img/"+dragId+"08_head.png' width='25%'/>"); 
+    		}).html("<img onClick='headColor(this);' id='"+dragId+"' src='img/costume/"+dragId+"_head.png' width='25%'/>"+
+    		"<img onClick='headColor(this);' id='"+dragId+"02' src='img/costume/"+dragId+"02_head.png' width='25%'/>"+
+    		"<img onClick='headColor(this);' id='"+dragId+"03' src='img/costume/"+dragId+"03_head.png' width='25%'/>"+
+    		"<img onClick='headColor(this);' id='"+dragId+"04' src='img/costume/"+dragId+"04_head.png' width='25%'/>"+
+    		"<img onClick='headColor(this);' id='"+dragId+"05' src='img/costume/"+dragId+"05_head.png' width='25%'/>"+
+    		"<img onClick='headColor(this);' id='"+dragId+"06' src='img/costume/"+dragId+"06_head.png' width='25%'/>"+
+    		"<img onClick='headColor(this);' id='"+dragId+"07' src='img/costume/"+dragId+"07_head.png' width='25%'/>"+
+    		"<img onClick='headColor(this);' id='"+dragId+"08' src='img/costume/"+dragId+"08_head.png' width='25%'/>"); 
 	    }
 	});
 	
 	$( "#snaptarget2" ).droppable({
         drop: function( event, ui ) {
         //     $( "#snaptarget2_img" )
-        //       .attr( "src","img/"+dragId+"_up.png" )
+        //       .attr( "src","img/costume/"+dragId+"_up.png" )
     		  //.css( "visibility","visible" );
     // 		imageUp = dragId;
     // 		isNext();
@@ -64,14 +72,21 @@
     			open:function(event, ui){
     				$(".ui-dialog-titlebar-close").hide();
     			}
-    		 }).html("<img onClick='upColor(this);' id='"+dragId+"' src='img/"+dragId+"_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"02' src='img/"+dragId+"02_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"03' src='img/"+dragId+"03_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"04' src='img/"+dragId+"04_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"05' src='img/"+dragId+"05_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"06' src='img/"+dragId+"06_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"07' src='img/"+dragId+"07_up.png' width='25%'/><img onClick='upColor(this);' id='"+dragId+"08' src='img/"+dragId+"08_up.png' width='25%'/>");
+    		 }).html("<img onClick='upColor(this);' id='"+dragId+"' src='img/costume/"+dragId+"_up.png' width='25%'/>"+
+    		 "<img onClick='upColor(this);' id='"+dragId+"02' src='img/costume/"+dragId+"02_up.png' width='25%'/>"+
+    		 "<img onClick='upColor(this);' id='"+dragId+"03' src='img/costume/"+dragId+"03_up.png' width='25%'/>"+
+    		 "<img onClick='upColor(this);' id='"+dragId+"04' src='img/costume/"+dragId+"04_up.png' width='25%'/>"+
+    		 "<img onClick='upColor(this);' id='"+dragId+"05' src='img/costume/"+dragId+"05_up.png' width='25%'/>"+
+    		 "<img onClick='upColor(this);' id='"+dragId+"06' src='img/costume/"+dragId+"06_up.png' width='25%'/>"+
+    		 "<img onClick='upColor(this);' id='"+dragId+"07' src='img/costume/"+dragId+"07_up.png' width='25%'/>"+
+    		 "<img onClick='upColor(this);' id='"+dragId+"08' src='img/costume/"+dragId+"08_up.png' width='25%'/>");
         }
     });
 	
 	$( "#snaptarget3" ).droppable({
       drop: function( event, ui ) {
     //     $( "#snaptarget3_img" )
-    //       .attr( "src","img/"+dragId+"_under.png" )
+    //       .attr( "src","img/costume/"+dragId+"_under.png" )
 		  //.css( "visibility","visible" );
 // 		imageUnder = dragId;
 // 		isNext();
@@ -83,7 +98,14 @@
 			open:function(event, ui){
 				 $(".ui-dialog-titlebar-close").hide();
 			}
-		}).html("<img onClick='underColor(this);' id='"+dragId+"' src='img/"+dragId+"_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"02' src='img/"+dragId+"02_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"03' src='img/"+dragId+"03_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"04' src='img/"+dragId+"04_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"05' src='img/"+dragId+"05_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"06' src='img/"+dragId+"06_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"07' src='img/"+dragId+"07_under.png' width='25%'/><img onClick='underColor(this);' id='"+dragId+"08' src='img/"+dragId+"08_under.png' width='25%'/>");
+		}).html("<img onClick='underColor(this);' id='"+dragId+"' src='img/costume/"+dragId+"_under.png' width='25%'/>"+
+		"<img onClick='underColor(this);' id='"+dragId+"02' src='img/costume/"+dragId+"02_under.png' width='25%'/>"+
+		"<img onClick='underColor(this);' id='"+dragId+"03' src='img/costume/"+dragId+"03_under.png' width='25%'/>"+
+		"<img onClick='underColor(this);' id='"+dragId+"04' src='img/costume/"+dragId+"04_under.png' width='25%'/>"+
+		"<img onClick='underColor(this);' id='"+dragId+"05' src='img/costume/"+dragId+"05_under.png' width='25%'/>"+
+		"<img onClick='underColor(this);' id='"+dragId+"06' src='img/costume/"+dragId+"06_under.png' width='25%'/>"+
+		"<img onClick='underColor(this);' id='"+dragId+"07' src='img/costume/"+dragId+"07_under.png' width='25%'/>"+
+		"<img onClick='underColor(this);' id='"+dragId+"08' src='img/costume/"+dragId+"08_under.png' width='25%'/>");
       }
     });
 
@@ -107,7 +129,7 @@
 	  	imageHead = id;
 	  	isNext();
 	  	console.log(id);
-		$( "#snaptarget1_img" ).attr( "src","img/"+id+"_head.png" ).css( "visibility","visible" );
+		$( "#snaptarget1_img" ).attr( "src","img/costume/"+id+"_head.png" ).css( "visibility","visible" );
 		$("#dialog").dialog("close");
 	};
 	function upColor(imgId){
@@ -115,7 +137,7 @@
 	  	imageUp = id;
 	  	isNext();
 	  	console.log(id);
-		$( "#snaptarget2_img" ).attr( "src","img/"+id+"_up.png" ).css( "visibility","visible" );
+		$( "#snaptarget2_img" ).attr( "src","img/costume/"+id+"_up.png" ).css( "visibility","visible" );
 		$("#dialog").dialog("close");
 	};
 	function underColor(imgId){
@@ -123,7 +145,7 @@
 	  	imageUnder = id;
 	  	isNext();
 	  	console.log(id);
-		$( "#snaptarget3_img" ).attr( "src","img/"+id+"_under.png" ).css( "visibility","visible" );
+		$( "#snaptarget3_img" ).attr( "src","img/costume/"+id+"_under.png" ).css( "visibility","visible" );
 		$("#dialog").dialog("close");
 	};
 	
@@ -213,7 +235,7 @@
                 </div><!-- .av_box -->
                 
                 <div id="dialog" title="色を選んでください"></div>
-                
+                <div id="dummy"></div>
             </div><!-- #right_box -->
         </div><!-- #box_wrap -->
             

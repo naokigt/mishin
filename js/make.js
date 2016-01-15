@@ -31,6 +31,8 @@ $(function(){
 	}
 	
 	
+	
+	
 	// プレゼン用の終了ボタン
 	$("#finish-button").click(function() {
 		drawEnd();
@@ -52,6 +54,9 @@ $(function(){
 		console.log(canvasEl.height)
 		return canvasEl.getContext("2d");
 	}
+	
+	// スタートボタンの位置の調整
+	$(".draw-start-wrapper").css('left', canvasWidth / 2 - 100 +'px');
 	
 	var ctx = canvasInit("canvas"); // メインのキャンバス
 	var ctxp = canvasInit("canvas-pointer"); // 先頭の糸の動きを描画
