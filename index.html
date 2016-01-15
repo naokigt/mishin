@@ -38,24 +38,12 @@ $(function(){
 
 	 //console.log(posValue);
 	$(".pos").click(function(){
-		 $("#btn1").attr({
-		 	'src': 'img/btn1.png',
-		 	'data-pos': 'off'
-		 });
-		 $("#btn2").attr({
-		 	'src': 'img/btn2.png',
-		 	'data-pos': 'off'
-		 });
-		 $("#btn3").attr({
-		 	'src': 'img/btn3.png',
-		 	'data-pos': 'off'
-		 });
+		 $("#btn1").attr('src', 'img/btn1.png');
+		 $("#btn2").attr('src', 'img/btn2.png');
+		 $("#btn3").attr('src', 'img/btn3.png');
 		 
-		 $(this).attr('src', 'img/'+$(this).attr('id')+'a.png')
-		 	    .attr('data-pos', $(this).attr('id'));
+		 $(this).attr('src', 'img/'+$(this).attr('id')+'a.png');
 		 posValue = $(this).attr('id');
-		 //console.log(posValue);
-		// console.log($(this).attr('data-pos'));
 	});
 	
 	$("#next-btn-index").click(function() {
