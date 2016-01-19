@@ -85,25 +85,44 @@ $(function(){
 	
     
 	var beta,
-		gamma;
+		gamma,
+		tmpBeta = 0,
+		tmpGamma = 0;
 	var MAX_SLOPE = 26;  // 最大傾斜
 		
 	// ジャイロセンサーの値が変化
 	window.addEventListener("deviceorientation", function deviceorientationHandler(event) {
+		
+		if(isNaN(event.beta)){
+			return;
+		}
+		
 		beta = event.beta;
 		gamma = event.gamma;
 		
+		
+		
+		// $("#gamma-value").html(typeof gamma + gamma);
+		// $("#beta-value").html(typeof beta + beta);
+		
+			
+		
 		// 最大傾斜にする
-		if(beta >= MAX_SLOPE){
-			beta = MAX_SLOPE;
-		}else if(beta <= -MAX_SLOPE){
-			beta = -MAX_SLOPE;
+		if(Number(beta) >= 26){
+			beta = 26;
+		}else if(Number(beta) <= -26){
+			beta = -26;
 		}
 		if(gamma >= MAX_SLOPE){
 			gamma = MAX_SLOPE;
-		}else if(gamma <= -MAX_SLOPE){
-			gamma = -MAX_SLOPE;
+		}else if(gamma <= -(MAX_SLOPE)){
+			gamma = -(MAX_SLOPE);
 		}
+		
+		
+		tmpBeta = beta;
+		tmpGamma = gamma;
+		
 		checkStartBtn();
 	});
 	
@@ -172,8 +191,6 @@ $(function(){
 
 	// 糸の描画
 	function drawingPointer(){
-	    $('#beta-value').text(pointer.x);
-	    $('#gamma-value').text(pointer.y);
 		beta = Math.floor(beta / 3 * 2);
 		gamma = Math.floor(gamma / 3 * 2);
 		
@@ -195,12 +212,27 @@ $(function(){
 	    	pointer.y = 0;
 	    }
 	    
+	    
+	    pointer.x = Number(pointer.x);
+	    pointer.y = Number(pointer.y);
+	    
+	    if(pointer.x == false){
+	    	pointer.x = 0;
+	    }
+	    if(pointer.y == false){
+	    	pointer.y = 0;
+	    }
+	    
+	    
+	    $('#px-value').text(pointer.x);
+	    $('#py-value').text(pointer.y);
+	    
 		drawingLeadPointer();
 		checkGoalPoint();
 		
 		// 範囲内だけ描ける
 	    if( ! isInRange(pointer.x, pointer.y)){
-	    	return;
+	    	return false;
 	    }
 
 	    ctx.strokeStyle = "#0000ff"; //線のカラー設定
@@ -236,6 +268,7 @@ $(function(){
 	function isInRange(x, y){
 		var imageData = ctx.getImageData(x, y, 1, 1);
     	var colorRBGA = Array.prototype.slice.apply(imageData.data);
+
 	    // $('#r-value').text(colorRBGA[0]);
 	    // $('#g-value').text(colorRBGA[1]);
 	    // $('#b-value').text(colorRBGA[2]);
@@ -243,8 +276,8 @@ $(function(){
 	    
 	    // 範囲外の色を指定
 	    if(colorRBGA[3] == 0 || colorRBGA[0] <= 90){
-	    	pointer.x -= gamma;
-	    	pointer.y -= beta;
+	    	pointer.x = pointer.x - gamma;
+	    	pointer.y = pointer.y - beta;
 	    	return false;
 	    }else{
 	    	return true;

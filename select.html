@@ -20,24 +20,26 @@
     var dragId;
     $( ".draggable" ).draggable({
 	  snap:".ui-widget-header",
+	  snapMode: 'inner',
 	  revert: "invalid" ,
       cursorAt: { top: 5, left: 5 },
       helper: function( event ) {
         dragId = $(this).attr('id');
         // console.log(dragId);
-        return $( "<div class='ui-widget-header av_box2'><div class='av_in2'><img src='img/costume/"+$(this).attr('id')+".png' /></div></div>" );
+        return $( "<div class=' av_box2'><div class='av_in2'><img src='img/costume/"+$(this).attr('id')+".png' /></div></div>" );
       }
     });
 
 
 	$( "#snaptarget1" ).droppable({
+	    hoverClass: 'snaptargetHover',
         drop: function( event, ui ) {
         //     $( "#snaptarget1_img" )
         //       .attr( "src","img/"+dragId+"_head.png" )
     		  //.css( "visibility","visible" );
     // 		imageHead = dragId;
     // 		isNext();
-
+            $( "#snaptarget1" ).attr( "src","img/char1s.png" );
     		$( "#dialog" ).dialog({
     			modal: true,
     			draggable: false,
@@ -58,12 +60,15 @@
 	});
 
 	$( "#snaptarget2" ).droppable({
+	    hoverClass: 'snaptargetHover',
         drop: function( event, ui ) {
         //     $( "#snaptarget2_img" )
         //       .attr( "src","img/costume/"+dragId+"_up.png" )
     		  //.css( "visibility","visible" );
     // 		imageUp = dragId;
     // 		isNext();
+    
+		$( "#snaptarget2" ).attr( "src","img/char2s.png" );
     		$( "#dialog" ).dialog({
     			modal: true,
     			draggable: false,
@@ -84,12 +89,14 @@
     });
 
 	$( "#snaptarget3" ).droppable({
+	    hoverClass: 'snaptargetHover',
       drop: function( event, ui ) {
     //     $( "#snaptarget3_img" )
     //       .attr( "src","img/costume/"+dragId+"_under.png" )
 		  //.css( "visibility","visible" );
 // 		imageUnder = dragId;
 // 		isNext();
+        $( "#snaptarget3" ).attr( "src","img/char3s.png" );
 		$( "#dialog" ).dialog({
 			modal: true,
 			draggable: false,
@@ -183,6 +190,7 @@
         	<h1><img src="img/head.png" /></h1>
         </header>
         <div id="box_wrap">
+             <p style="width: 100%; text-align:center; padding-bottom: 10px;">お好きな衣装を掴んで、アバターにドロップしてください。</p>
             <div id="left_box">
                 <img src="img/char_woman.png"  id="snaptarget" />
 

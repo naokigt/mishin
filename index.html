@@ -41,9 +41,10 @@ $(function(){
 		 $("#btn1").attr('src', 'img/btn1.png');
 		 $("#btn2").attr('src', 'img/btn2.png');
 		 $("#btn3").attr('src', 'img/btn3.png');
-		 
 		 $(this).attr('src', 'img/'+$(this).attr('id')+'a.png');
 		 posValue = $(this).attr('id');
+		 //console.log(posValue);
+		// console.log($(this).attr('data-pos'));
 	});
 	
 	$("#next-btn-index").click(function() {
