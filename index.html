@@ -25,6 +25,10 @@ $(function(){
 		}
 		$.cookie('userHash', r);
 	}
+	
+	if($.cookie('name')){
+		$("#name_ipt").val($.cookie('name'));
+	}
 	// クッキーの削除
 	$.removeCookie('gender');
 	$.removeCookie('name');
@@ -44,8 +48,6 @@ $(function(){
 		 $("#btn3").attr('src', 'img/btn3.png');
 		 $(this).attr('src', 'img/'+$(this).attr('id')+'a.png');
 		 posValue = $(this).attr('id');
-		 //console.log(posValue);
-		// console.log($(this).attr('data-pos'));
 	});
 	
 	$("#next-btn-index").click(function() {
@@ -65,24 +67,16 @@ $(function(){
 		 }
 	});
 	
+	$(".sex").click(function(){
+		if($(this).attr('id') == 'man'){
+			$("#woman").attr('src', 'img/woman.png');
+		}else{
+			$("#man").attr('src', 'img/man.png');
+		}
+		$(this).attr('src', 'img/'+$(this).attr('id')+'_a.png');
+		sexValue = $(this).attr('id');
+	});
 });
-// console.log(sexValue);
-function sexChange(){
-	 if($("#sex").attr('data-sex') == "man"){
-		 
-		 $('#sex').attr('src', 'img/woman.png');
-		 $('#sex').attr('data-sex', 'woman');
-		 sexValue = 'woman';
-  
-     }else if($("#sex").attr('data-sex') == "woman"){
-  
-		 $('#sex').attr('src', 'img/man.png');
-		 $('#sex').attr('data-sex', 'man');
-		 sexValue = 'man';
-  
-     }
-     //console.log(sexValue);
-}
 </script>
 </head>
 
@@ -112,7 +106,8 @@ function sexChange(){
 			<form action="select.html" method="post">
 				<h2><span>Name</span></h2>
 			    <div id="ipt_box">
-			    	<img onClick="sexChange();" id="sex" data-sex="man" src="img/man.png" />
+			    	<img class="sex" id="man" src="img/man_a.png" />
+			    	<img class="sex" id="woman" src="img/woman.png" />
 			    	<input type="text" id="name_ipt" placeholder="名前を入力してください" />
 				</div><!-- #ipt_box -->
 			    
