@@ -8,9 +8,14 @@ $(function(){
 		$(".order-message-after").addClass('animated fadeInDown')
 	// }, 500);
 	
+	var cosKind = ["akuma","halloween","heisi","majo","santa","tensi","v_neck_gundam"];
+	var r = Math.floor( Math.random() * cosKind.length ) ;
+	$.cookie('cosK', cosKind[r]);
 	// メッセージの受け取り画面
 	$("#page-order-message .dash-btn").click(function() {
 	    $("#page-order-message").hide();
+		
+		$(".order-image").attr("src","img/costume/"+cosKind[r]+".png");
 	    	$("#page-order-main").show();
 
 	});
