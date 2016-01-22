@@ -8,7 +8,7 @@ $(function(){
 		$(".order-message-after").addClass('animated fadeInDown')
 	// }, 500);
 	
-	var cosKind = ["akuma","halloween","heisi","majo","santa","tensi","v_neck_gundam"];
+	var cosKind = ["akuma","halloween","heisi","majo","santa","tensi","v_neck_gundam", "meido"];
 	var r = Math.floor( Math.random() * cosKind.length ) ;
 	$.cookie('cosK', cosKind[r]);
 	// メッセージの受け取り画面
