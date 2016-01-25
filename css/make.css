@@ -100,7 +100,7 @@ html, body{
 .draw-start-wrapper{
 	position: absolute;
     z-index: 2;
-    top: 420px;
+    top: 350px;
     left: 90px;
     right: 0;
     text-align: center;
@@ -108,7 +108,7 @@ html, body{
 }
 #draw-start{
     min-width: 200px;
-	
+
 }
 #page-finish{
 	height: 100%;

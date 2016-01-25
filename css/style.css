@@ -29,7 +29,7 @@ body{
 #main header{
 	width: 100%;
 }
-#main h1{   
+#main h1{
 	width: 100%;
 }
 
@@ -97,7 +97,7 @@ body{
 }
 
 #ipt_box img{
-	width: 15%;
+	width: 13%;
 	vertical-align: middle;
 }
 
@@ -109,7 +109,7 @@ body{
 }
 
 input#name_ipt{
-	width: 38%;
+	width: 48%;
 	height: 1em;
 	font-size: 1em;
 	margin-left: 10px;
@@ -191,7 +191,7 @@ input#name_ipt{
 
 .av_box{
 	width: 35%;
-	text-align:center;	
+	text-align:center;
 	position: relative;
 	float: left;
 	background: #fff;
@@ -222,7 +222,7 @@ input#name_ipt{
 	width: 20%;
 	background: #fff;
 	position: relative;
-	text-align:center;	
+	text-align:center;
 	border-radius:50%;
 	overflow:hidden;
 }
@@ -385,7 +385,7 @@ input#name_ipt{
 }
 
 #fn_req span{
-	font-size:36px;
+	font-size:28px;
 	color: #F60;
 }
 
